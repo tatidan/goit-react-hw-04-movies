@@ -75,7 +75,7 @@ img {
 }
 
 h1 {
-  padding: 30px;
+  padding: 15px 30px;
   text-transform: uppercase;
 }
 ul {
@@ -202,7 +202,7 @@ ul {
 
 // ===SLIDER STYLES==========================
 .slide-container {
-  width: 90vw;
+  width: 85vw;
   margin: 0 auto;
   padding-top: 25px;
   padding-bottom: 15px;
@@ -223,13 +223,13 @@ ul {
     object-fit: cover;
   }
   &__movieTitle {
-    font-size: 1em;
+    font-size: 12px;
     display: flex;
     text-align: center;
     justify-content: center;
     align-items: center;
     margin: 0;
-    height: 70px;
+    height: 60px;
     background-color: rgba(0, 139, 139, 0.2);
   }
 }

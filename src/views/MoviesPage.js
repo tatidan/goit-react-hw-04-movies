@@ -35,6 +35,7 @@ class MoviesPage extends Component {
           total_results: data.total_results,
         });
         this.options.query = this.state.searchQuery;
+        // this.props.handleTotalStats({ data });
       });
     }
   }
@@ -57,6 +58,7 @@ class MoviesPage extends Component {
           onSubmit={this.onChangeQuery}
           total_pages={this.total_pages}
           total_results={this.total_results}
+          // handleTotalStats={handleTotalStats}
         />
         {this.state.movies.length > 1 && (
           <section className="section">

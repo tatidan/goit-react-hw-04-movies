@@ -7,9 +7,9 @@ const API_URL = process.env.REACT_APP_BASE_URL;
 export const fetchMovies = async () => {
   try {
     const response = await axios.get(
-      API_URL + "/trending/all/day?api_key=" + API_KEY
+      API_URL + "/trending/all/week?api_key=" + API_KEY
     );
-
+    // console.log(response.data);
     return response;
   } catch (error) {
     console.log(error);

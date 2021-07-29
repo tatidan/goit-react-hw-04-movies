@@ -30,9 +30,27 @@ const PauseHoverSlider = ({ movies }) => {
                     alt={movie.title}
                   />
                 )}
+                {!movie.poster_path && movie.backdrop_path && (
+                  <img
+                    className="TrendingMovie__poster"
+                    src={`https://image.tmdb.org/t/p/w300/${movie.backdrop_path}`}
+                    alt={movie.title}
+                  />
+                )}
+                {/* {!movie.poster_path && !movie.backdrop_path && (
+                  <img
+                    className="TrendingMovie__poster"
+                    src="../../images/filmInProd_img.jpg"
+                    alt="n/a"
+                  />
+                )} */}
               </NavLink>
             </div>
-            <p className="TrendingMovie__movieTitle">{movie.title}</p>
+            {movie.title ? (
+              <p className="TrendingMovie__movieTitle">{movie.title}</p>
+            ) : (
+              <p className="TrendingMovie__movieTitle">{movie.name}</p>
+            )}
           </div>
         ))}
       </Slide>

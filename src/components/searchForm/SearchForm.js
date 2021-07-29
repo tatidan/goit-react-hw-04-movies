@@ -4,7 +4,14 @@ import sprite from "../../icons/sprite.svg";
 class SearchForm extends Component {
   state = {
     query: "",
+    total_results: null,
+    total_pages: null,
   };
+
+  //где ее вызывать?
+  // handleTotalStats = (total_results, total_pages) => {
+  //   this.setState({ total_results: total_results, total_pages: total_pages });
+  // };
 
   handleChange = (e) => {
     this.setState({ query: e.currentTarget.value });
@@ -12,8 +19,8 @@ class SearchForm extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    console.log(this.state);
     this.props.onSubmit(this.state.query);
+    // this.handleTotalStats();
 
     this.reset();
   };
@@ -23,12 +30,16 @@ class SearchForm extends Component {
   };
 
   render() {
-    console.log(this.props.total_pages);
+    const { total_results, total_pages } = this.state;
 
     return (
       <section className="section">
         <div className="search__wrapper">
-          <form className="search__form" onSubmit={this.handleSubmit}>
+          <form
+            className="search__form"
+            onSubmit={this.handleSubmit}
+            // handleTotalStats={this.handleTotalStats}
+          >
             <img src="../icons/sprite.svg#icon-search" alt="" />
             <label className="label">
               <input
@@ -47,19 +58,23 @@ class SearchForm extends Component {
             </button>
           </form>
 
-          {/* {this.props.total_pages > 1 &&
-            this.props.total_results( */}
+          {/* {total_pages >= 1 && ( */}
           <div className="search__totalStats">
             <p className="FullMovieList">
-              <a className="FullMovieLink" href="#FullMovieList">
+              <a
+                className="FullMovieLink"
+                //добавить якорь для плавной прокрутки
+                href="#FullMovieList"
+                rel="noopener noreferrer"
+              >
                 <b>See full movie list</b>
               </a>
             </p>
             <p className="search__totalPages">
-              <b>Total pages:</b> {this.state.total_pages}
+              <b>Total pages:</b> {total_pages}
             </p>
             <p className="search__totalResults">
-              <b>Total results:</b> {this.state.total_results}
+              <b>Total results:</b> {total_results}
             </p>
 
             <button type="button" className="search__button">

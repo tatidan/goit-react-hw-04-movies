@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import PauseHoverSlider from "../slider/Slider";
 import { fetchMovies } from "../../services/ApiService";
+import MoviesSlider from "../moviesSlider/MoviesSlider";
 
 class TrendingMovieList extends Component {
   state = {
@@ -21,7 +21,7 @@ class TrendingMovieList extends Component {
         <h1 className="section__title">Trending today</h1>
 
         <ul className="TrendingMovie__list">
-          <PauseHoverSlider movies={this.state.movies} />
+          <MoviesSlider movies={this.state.movies} />
         </ul>
       </section>
     );

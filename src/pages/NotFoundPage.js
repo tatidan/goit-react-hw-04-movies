@@ -17,3 +17,5 @@ const NotFoundPage = () => {
 };
 
 export default NotFoundPage;
+
+//не отправлять на pageNot редирект на home

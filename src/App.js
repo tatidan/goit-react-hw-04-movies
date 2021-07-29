@@ -1,10 +1,17 @@
-import { Route, Switch } from "react-router-dom";
-import HomePage from "./pages/HomePage";
-import MoviesPage from "./pages/MoviesPage";
-import MovieDetailsPage from "./pages/MovieDetailsPage";
-import NotFoundPage from "./pages/NotFoundPage";
+import { Route } from "react-router-dom";
+import { mainRoutes } from "./routes/MainRoutes";
 import NavList from "./components/navigation/NavList";
 import LanguageSwitcher from "./components/languageSwitcher/LanguageSwitcher";
+
+// const Test = (props) => {
+//   console.log(props);
+//   return <h1>Test title</h1>;
+// };
+
+// const Test = withRouter((props) => {
+//   console.log(props);
+//   return <h1>Test title</h1>;
+// });
 
 const App = () => {
   return (
@@ -14,12 +21,13 @@ const App = () => {
         <LanguageSwitcher />
       </header>
 
-      <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route exact path="/movies" component={MoviesPage} />
-        <Route path="/movies/:movie.id" component={MovieDetailsPage} />
-        <Route component={NotFoundPage} />
-      </Switch>
+      {/* <Test /> */}
+
+      <main>
+        {mainRoutes.map(({ path, exact, component }) => (
+          <Route path={path} component={component} exact={exact} key={path} />
+        ))}
+      </main>
     </div>
   );
 };

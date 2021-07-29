@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import "react-slideshow-image/dist/styles.css";
 import defaultImg from "../../images/movie-in-prod.jpg";
 
-const PauseHoverSlider = ({ movies }) => {
+const MoviesSlider = ({ movies }) => {
   const fadeProperties = {
     duration: 2000,
     pauseOnHover: true,
@@ -49,4 +49,4 @@ const PauseHoverSlider = ({ movies }) => {
   );
 };
 
-export default PauseHoverSlider;
+export default MoviesSlider;

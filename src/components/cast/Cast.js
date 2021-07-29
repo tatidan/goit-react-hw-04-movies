@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Route } from "react-router-dom";
 
 class Cast extends Component {
   state = {
@@ -27,6 +28,10 @@ class Cast extends Component {
     return (
       <>
         <h1>Компонент Cast</h1>
+        <Route
+          path="/movies/:movie.id"
+          render={() => <h3>Компонент карточка фильма</h3>}
+        />
       </>
     );
   }

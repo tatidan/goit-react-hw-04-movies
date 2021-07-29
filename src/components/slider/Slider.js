@@ -2,6 +2,7 @@ import React from "react";
 import { Slide } from "react-slideshow-image";
 import { NavLink } from "react-router-dom";
 import "react-slideshow-image/dist/styles.css";
+import defaultImg from "../../images/movie-in-prod.jpg";
 
 const PauseHoverSlider = ({ movies }) => {
   const fadeProperties = {
@@ -23,27 +24,17 @@ const PauseHoverSlider = ({ movies }) => {
                 className="TrendingMovie__link"
                 to={`/movies/${movie.id}`}
               >
-                {movie.poster_path && (
-                  <img
-                    className="TrendingMovie__poster"
-                    src={`https://image.tmdb.org/t/p/w300/${movie.poster_path}`}
-                    alt={movie.title}
-                  />
-                )}
-                {!movie.poster_path && movie.backdrop_path && (
-                  <img
-                    className="TrendingMovie__poster"
-                    src={`https://image.tmdb.org/t/p/w300/${movie.backdrop_path}`}
-                    alt={movie.title}
-                  />
-                )}
-                {/* {!movie.poster_path && !movie.backdrop_path && (
-                  <img
-                    className="TrendingMovie__poster"
-                    src="../../images/filmInProd_img.jpg"
-                    alt="n/a"
-                  />
-                )} */}
+                <img
+                  className="TrendingMovie__poster"
+                  src={
+                    movie.poster_path || movie.backdrop_path
+                      ? `https://image.tmdb.org/t/p/w300/${
+                          movie.poster_path || movie.backdrop_path
+                        }`
+                      : defaultImg
+                  }
+                  alt={movie.title}
+                />
               </NavLink>
             </div>
             {movie.title ? (

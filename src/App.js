@@ -1,8 +1,8 @@
 import { Route, Switch } from "react-router-dom";
-import HomePage from "./views/HomePage";
-import MoviesPage from "./views/MoviesPage";
-import MovieDetailsPage from "./views/MovieDetailsPage";
-import NotFoundPage from "./views/NotFoundPage";
+import HomePage from "./pages/HomePage";
+import MoviesPage from "./pages/MoviesPage";
+import MovieDetailsPage from "./pages/MovieDetailsPage";
+import NotFoundPage from "./pages/NotFoundPage";
 import NavList from "./components/navigation/NavList";
 import LanguageSwitcher from "./components/languageSwitcher/LanguageSwitcher";
 

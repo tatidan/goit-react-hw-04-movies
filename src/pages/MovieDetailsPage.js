@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { NavLink, Route } from "react-router-dom";
-import axios from "axios";
+import { fetchMovies } from "../services/ApiService";
+// import axios from "axios";
 import Reviews from "../components/reviews/Reviews";
 import Cast from "../components/cast/Cast";
 
@@ -15,10 +16,7 @@ class MovieDetailsPage extends Component {
     genres: [],
     homepage: "",
     id: null,
-
     backdrop_path: null,
-    //тут тоже лежит путь к постеру
-
     poster_path: null,
     cast: null,
     reviews: null,
@@ -26,15 +24,15 @@ class MovieDetailsPage extends Component {
   };
 
   async componentDidMount() {
-    // const { movieId } = this.props.match.params;
-    console.log(this.props.match.params);
-
     //пока тут реальный линк======
-    const URL =
-      "https://api.themoviedb.org/3/movie/550?api_key=e8ee72216daf4e999abce8d8e2bbbfa9";
-    const response = await axios.get(URL).then((response) => response.data);
-    this.setState({ ...response });
-    this.changeDateToYear();
+    // const URL =
+    //   "https://api.themoviedb.org/3/movie/550?api_key=e8ee72216daf4e999abce8d8e2bbbfa9";
+    // const response = await axios.get(URL).then((response) => response.data);
+
+    fetchMovies().then((response) => {
+      this.setState({ ...response });
+      this.changeDateToYear();
+    });
   }
 
   changeDateToYear = () => {
@@ -125,18 +123,16 @@ class MovieDetailsPage extends Component {
           <h4>Reviews</h4>
 
           <p>
-            <NavLink to="https://developers.themoviedb.org/3/movies/get-movie-credits">
-              {cast}
-            </NavLink>
+            <NavLink to="/movies/:movieId/credits">{cast}</NavLink>
           </p>
           <p>
-            <NavLink to={`/movies/:movieId`}>{reviews}</NavLink>
+            <NavLink to="/movies/:movieId/reviews">{reviews}</NavLink>
           </p>
         </div>
 
         <Route
           // "https://developers.themoviedb.org/3/movies/get-movie-credits"
-          path={`movies/:movieId`}
+          path="/movies/:movieId/credits"
           // render={() => <h1>Компонент Cast</h1>}
           component={Cast}
           // render={(props) => <Cast {...props} extraPropName="value" />}
@@ -149,8 +145,8 @@ class MovieDetailsPage extends Component {
         />
         <Route
           // "https://developers.themoviedb.org/3/movies/get-movie-reviews"
-          path={`movies/:movieId`}
-          render={() => <h1>Компонент Reviews</h1>}
+          path="/movies/:movieId/reviews"
+          // render={() => <h1>Компонент Reviews</h1>}
           component={Reviews}
         />
       </>
@@ -173,3 +169,14 @@ export default MovieDetailsPage;
 // review - author, review
 // we don't have any reviews for this movie
 // back to the list of movies
+
+//  <script type="text/javascript">
+//       $(document).ready(function () {
+//         $("#menu").on("click", "a", function (event) {
+//           event.preventDefault();
+//           var id = $(this).attr('href'),
+//             top = $(id).offset().top;
+//           $('body,html').animate({ scrollTop: top }, 1500);
+//         });
+//       });
+//     </script>

@@ -18,6 +18,7 @@ const NavList = () => {
           Home
         </NavLink>
       </li>
+
       <li className="NavListItem">
         <NavLink
           to="/movies"

@@ -37,16 +37,16 @@ img {
   height: auto;
 }
 
-.link {
-  text-decoration: none;
+.section {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  -webkit-box-shadow: 0px 5px 5px -5px rgba(34, 60, 80, 0.6);
+  -moz-box-shadow: 0px 5px 5px -5px rgba(34, 60, 80, 0.6);
+  box-shadow: 0px 5px 5px -5px rgba(34, 60, 80, 0.6);
 }
 .NavList {
   display: flex;
   padding: 25px;
-  // border-bottom: 2px solid darkcyan;
-  -webkit-box-shadow: 0px 5px 5px -5px rgba(34, 60, 80, 0.6);
-  -moz-box-shadow: 0px 5px 5px -5px rgba(34, 60, 80, 0.6);
-  box-shadow: 0px 5px 5px -5px rgba(34, 60, 80, 0.6);
 }
 .NavListItem:not(:last-child) {
   margin-right: 30px;
@@ -76,6 +76,7 @@ img {
 
 h1 {
   padding: 30px;
+  text-transform: uppercase;
 }
 ul {
   padding-left: 30px;
@@ -118,13 +119,17 @@ ul {
 }
 
 .search {
-  &__field {
+  &__wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  &__form {
     width: 50vw;
-    margin-left: 30px;
-    margin-top: 30px;
+    margin: 0px 20px;
   }
   &__input {
-    font-size: 24px;
+    font-size: 22px;
     padding: 10px;
     border-radius: 6px;
     border-color: darkcyan;
@@ -146,12 +151,14 @@ ul {
     }
   }
   &__button {
-    font-size: 24px;
+    font-size: 22px;
     padding: 10px;
     margin-left: 20px;
-    border-radius: 6px;
+    margin-right: 20px;
+    border-radius: 8px;
     border-color: darkcyan;
     color: darkcyan;
+    align-self: center;
     &:hover,
     &:focus {
       background-color: darkcyan;
@@ -163,41 +170,120 @@ ul {
   }
   &__icon {
     display: inline-block;
-    width: 20px;
-    height: 20px;
+    width: 25px;
+    height: 25px;
     margin-right: 6px;
+    align-self: center;
+  }
+  &__totalStats {
+    display: flex;
+
+    font-size: 20px;
+
+    // margin: 10px 30px;
+  }
+  &__totalPages {
+    margin-right: 20px;
+  }
+  &__totalResults {
+    margin-right: 20px;
   }
 }
 
-svg {
-  fill: black;
+// .FullMovieList {
+//   display: flex;
+//   flex-direction: column;
+// }
+.FullMovieLink {
+  text-decoration: none;
+  color: darkcyan;
+  margin-right: 20px;
 }
 
 // ===SLIDER STYLES==========================
+.slide-container {
+  width: 90vw;
+  margin: 0 auto;
+  padding-top: 25px;
+  padding-bottom: 15px;
+}
+.each-fade {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+}
 
-// .each-fade {
-//   display: flex;
-//   width: 100%;
-// }
+.TrendingMovie {
+  // &__wrapper {
+  //   justify-content: center;
+  // }
+  &__poster {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+  &__movieTitle {
+    font-size: 1em;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    height: 70px;
+    background-color: rgba(0, 139, 139, 0.2);
+  }
+}
 
-// .each-fade > div {
-//   width: 75%;
-// }
-
-// .each-fade > div img {
-//   width: 100%;
-//   height: 100%;
-//   object-fit: cover;
-// }
-
-// .each-fade p {
-//   width: 25%;
-//   font-size: 1em;
-//   display: flex;
-//   text-align: center;
-//   justify-content: center;
-//   align-items: center;
-//   margin: 0;
-//   background: #adceed;
-// }
 // ===END OF SLIDER STYLES===================
+
+.NotFoundPage {
+  &__wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  &__icon {
+    width: 50px;
+    height: 50px;
+    margin-right: 20px;
+  }
+}
+
+// ===================
+
+.header {
+  -webkit-box-shadow: 0px 5px 5px -5px rgba(34, 60, 80, 0.6);
+  -moz-box-shadow: 0px 5px 5px -5px rgba(34, 60, 80, 0.6);
+  box-shadow: 0px 5px 5px -5px rgba(34, 60, 80, 0.6);
+  display: flex;
+  justify-content: space-between;
+}
+
+.languageSwitcher {
+  margin-right: 30px;
+  // align-self: center;
+  font-size: 14px;
+  border: 1px solid darkcyan;
+  outline: 1px solid darkcyan;
+  padding: 4px;
+  // height: 20px;
+
+  &__wrapper {
+    display: flex;
+    align-items: center;
+  }
+
+  &__icon {
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    margin-right: 6px;
+    fill: rgba(112, 114, 114, 0.7);
+  }
+}
+
+//иконка не реагирует на изменение fill при focus
+.languageSwitcher:focus .languageSwitcher__icon {
+  fill: darkcyan;
+  stroke: darkcyan;
+}

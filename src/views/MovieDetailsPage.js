@@ -4,9 +4,9 @@ import axios from "axios";
 import Reviews from "../components/reviews/Reviews";
 import Cast from "../components/cast/Cast";
 
-const SEARCH_URL = "https://image.tmdb.org/t/p/w300/";
+// const SEARCH_URL = "https://image.tmdb.org/t/p/w300/";
 
-class MovieDetailsView extends Component {
+class MovieDetailsPage extends Component {
   state = {
     title: "",
     release_date: null,
@@ -26,7 +26,7 @@ class MovieDetailsView extends Component {
   };
 
   async componentDidMount() {
-    const { movieId } = this.props.match.params;
+    // const { movieId } = this.props.match.params;
     console.log(this.props.match.params);
 
     //пока тут реальный линк======
@@ -60,7 +60,7 @@ class MovieDetailsView extends Component {
       overview,
       poster_path,
       cast,
-      id,
+      // id,
       reviews,
       homepage,
       production_companies,
@@ -158,8 +158,18 @@ class MovieDetailsView extends Component {
   }
 }
 
-export default MovieDetailsView;
+export default MovieDetailsPage;
 
 // https://developers.themoviedb.org/3/movies/get-movie-details - запрос полной информации о фильме для страницы кинофильма.
 // https://developers.themoviedb.org/3/movies/get-movie-credits - запрос информации о актёрском составе для страницы кинофильма.
 // https://developers.themoviedb.org/3/movies/get-movie-reviews - запрос обзоров для страницы кинофильма.
+
+//это путь на фильм
+//https://api.themoviedb.org/3/movie/508943?api_key=e8ee72216daf4e999abce8d8e2bbbfa9&language=en-US
+
+// добавить жанры в карточку
+// cast & reviews это линки на доп.инфо (рендер внизу)
+// cast - photo, name, character
+// review - author, review
+// we don't have any reviews for this movie
+// back to the list of movies

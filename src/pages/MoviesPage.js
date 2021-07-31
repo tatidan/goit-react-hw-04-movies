@@ -3,6 +3,9 @@ import { Route } from "react-router-dom";
 import SearchForm from "../components/searchForm/SearchForm";
 import MoviesSlider from "../components/moviesSlider/MoviesSlider";
 import { searchMovies } from "../services/ApiService";
+import MovieDetailsPage from "./MovieDetailsPage";
+import FullMovieList from "../components/fullMovieList/FullMovieList";
+// import { withRouter } from "react-router";
 
 class MoviesPage extends Component {
   state = {
@@ -29,6 +32,11 @@ class MoviesPage extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.searchQuery !== this.state.searchQuery) {
+      // this.props.history.push({ search: this.state.searchQuery });
+      //при такой записи ?avatar
+      //нужно ?query=avatar
+      //и повторный axios.get, когда по кнопке переход назад на movies
+
       searchMovies({ query: this.state.searchQuery }, this.options).then(
         ({ data }) => {
           this.setState({
@@ -51,7 +59,9 @@ class MoviesPage extends Component {
   };
 
   openMovieDetails = (e) => {
-    console.log("переход на страницу одного фильма");
+    if (e.currentTarget === e.target) {
+      console.log("переход на страницу одного фильма");
+    }
   };
 
   render() {
@@ -71,11 +81,13 @@ class MoviesPage extends Component {
               movies={this.state.movies}
               onClick={this.openMovieDetails}
             />
+            <FullMovieList movies={this.state.movies} />
           </section>
         )}
         <Route
-          path="/movies/:movie.id"
-          render={() => <h3>Компонент карточка фильма</h3>}
+          path="/movies/:movieId"
+          component={MovieDetailsPage}
+          exact={false}
         />
       </>
     );
@@ -83,7 +95,3 @@ class MoviesPage extends Component {
 }
 
 export default MoviesPage;
-
-// https://developers.themoviedb.org/3/movies/get-movie-details - запрос полной информации о фильме для страницы кинофильма.
-// https://developers.themoviedb.org/3/movies/get-movie-credits - запрос информации о актёрском составе для страницы кинофильма.
-// https://developers.themoviedb.org/3/movies/get-movie-reviews - запрос обзоров для страницы кинофильма.

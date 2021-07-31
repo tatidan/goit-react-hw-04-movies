@@ -1,11 +1,10 @@
 import React, { Component } from "react";
-import { NavLink, Route } from "react-router-dom";
-import { fetchMovies } from "../services/ApiService";
-// import axios from "axios";
-import Reviews from "../components/reviews/Reviews";
+import { Link, Route } from "react-router-dom";
 import Cast from "../components/cast/Cast";
-
-// const SEARCH_URL = "https://image.tmdb.org/t/p/w300/";
+import Reviews from "../components/reviews/Reviews";
+import GoBackButton from "../components/goBackButton/GoBackButton";
+import { searchMovieDetails } from "../services/ApiService";
+import sprite from "../icons/sprite.svg";
 
 class MovieDetailsPage extends Component {
   state = {
@@ -14,25 +13,33 @@ class MovieDetailsPage extends Component {
     runtime: 0,
     overview: "",
     genres: [],
+    adult: false,
+    imdb_id: null,
+    vote_average: null,
+    vote_count: null,
     homepage: "",
     id: null,
+    tagline: null,
     backdrop_path: null,
     poster_path: null,
-    cast: null,
-    reviews: null,
     production_companies: null,
+    production_countries: null,
+    language: "en-US",
+  };
+  options = {
+    language: "en-US",
+    adult: false,
+    page: 1,
   };
 
   async componentDidMount() {
-    //пока тут реальный линк======
-    // const URL =
-    //   "https://api.themoviedb.org/3/movie/550?api_key=e8ee72216daf4e999abce8d8e2bbbfa9";
-    // const response = await axios.get(URL).then((response) => response.data);
-
-    fetchMovies().then((response) => {
-      this.setState({ ...response });
-      this.changeDateToYear();
-    });
+    const { movieId } = this.props.match.params;
+    console.log(movieId);
+    const response = await searchMovieDetails(movieId).then(
+      (response) => response.data
+    );
+    this.setState({ ...response });
+    this.changeDateToYear();
   }
 
   changeDateToYear = () => {
@@ -41,15 +48,6 @@ class MovieDetailsPage extends Component {
     this.setState({ release_date: year });
   };
 
-  // componentDidUpdate(prevProps, prevState) {
-  //   if (prevState.production_companies !== this.state.production_companies) {
-  //     console.log(`prevState`, prevState);
-  //     console.log(`this.state`, this.state);
-  //     //сейчас тут лежат распыленные данные о фильме
-  //     // this.fetchMovies();
-  //   }
-  // }
-
   render() {
     const {
       title,
@@ -57,97 +55,153 @@ class MovieDetailsPage extends Component {
       runtime,
       overview,
       poster_path,
-      cast,
-      // id,
-      reviews,
+      imdb_id,
+      vote_average,
+      vote_count,
+      tagline,
+      adult,
+      genres,
       homepage,
       production_companies,
+      production_countries,
     } = this.state;
-    // const { match } = this.props;
-    // const URL =
-    //   "https://api.themoviedb.org/3/movie/550?api_key=e8ee72216daf4e999abce8d8e2bbbfa9";
-    // console.log(URL);
-    // console.log(`this.props.match`, this.props.match);
-    // console.log(`match.url`, match.url);
+
+    // history.push(path [, state]) - добавляет новую запись на стек записей истории.
+    // history.replace(path [, state]) - подменяет текущую запись на новую на стеке записей истории.
 
     return (
       <>
-        <h1>Это страница одного фильма</h1>
+        <section className="section">
+          <GoBackButton />
+          <div className="movie__card">
+            <div className="movie__posterWrapper">
+              {poster_path && (
+                <img
+                  className="movie__poster"
+                  src={`https://image.tmdb.org/t/p/w300/${poster_path}`}
+                  alt={title}
+                />
+              )}
 
-        <div className="movie__card">
-          <div className="movie__posterWrapper">
-            <img
-              className="movie__poster"
-              src={`https://image.tmdb.org/t/p/w300/${poster_path}`}
-              alt={title}
-            />
-          </div>
+              <p>
+                <b>Tagline:</b> {tagline}
+              </p>
 
-          <div className="movie__detailsWrapper">
-            <h2>
-              {title} ({release_date})
-            </h2>
-            <a href={homepage} target="_blank" rel="noreferrer">
-              линк на страницу фильма
-            </a>
-            <p>
-              <b>Runtime:</b> {runtime} minutes
-            </p>
-            <p>
-              <b>Overview:</b> {overview}
-            </p>
-            <h4>Production companies:</h4>
-            <ul className="movie__companies">
-              {production_companies?.length > 0 &&
-                production_companies.map(
-                  (company) =>
-                    company.logo_path && (
-                      <li key={company.name}>
-                        <span>
-                          <img
-                            className="movie__companiesLogo"
-                            src={`https://image.tmdb.org/t/p/w300/${company.logo_path}`}
-                            alt={company.name}
-                          />
-                        </span>
-                      </li>
-                    )
+              <p className="movie__outerLinks">
+                <a href={homepage} target="_blank" rel="noreferrer">
+                  Movie page
+                </a>
+                <span> </span>
+                <a
+                  href={`https://www.imdb.com/title/${imdb_id}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Trailer
+                </a>
+              </p>
+            </div>
+
+            <div className="movie__detailsWrapper">
+              <h2>
+                {title} ({release_date})
+              </h2>
+              <p className="movie__rates">
+                {!adult && <span>R</span>}
+                <b> * </b> {runtime} mins
+                <b> * </b>
+                {vote_average >= 8 && (
+                  <>
+                    <svg className="NavLink__icon">
+                      <use href={sprite + "#icon-star-full"}></use>
+                    </svg>
+                    {vote_average} / 10 <b> * Votes:</b> {vote_count}
+                  </>
                 )}
-            </ul>
+                {vote_average < 8 && vote_average > 5 && (
+                  <>
+                    <svg className="NavLink__icon">
+                      <use href={sprite + "#icon-star-half"}></use>
+                    </svg>
+                    {vote_average} / 10 <b> * Votes:</b> {vote_count}
+                  </>
+                )}
+                {vote_average <= 5 && (
+                  <>
+                    <svg className="NavLink__icon">
+                      <use href={sprite + "#icon-star-empty"}></use>
+                    </svg>
+                    {vote_average} / 10 <b> * Votes:</b> {vote_count}
+                  </>
+                )}
+                {!vote_average && !vote_count && <span>Unrated</span>}
+                <b> * </b>
+                {genres?.length > 0 &&
+                  genres.map(
+                    ({ name, id }) => name && <span key={id}>{name}</span>
+                  )}
+              </p>
+              <p className="movie__overview">
+                <b>Overview:</b> {overview}
+              </p>
+
+              <h4>Production companies:</h4>
+              <ul className="movie__companies">
+                {production_companies?.length > 0 &&
+                  production_companies.map(
+                    (company) =>
+                      company.logo_path && (
+                        <li key={company.name}>
+                          <span>
+                            <img
+                              className="movie__companiesLogo"
+                              src={`https://image.tmdb.org/t/p/w300/${company.logo_path}`}
+                              alt={company.name}
+                            />
+                          </span>
+                        </li>
+                      )
+                  )}
+              </ul>
+              <b>Production countries:</b>
+              <ul className="movie__countries">
+                {production_countries?.length > 0 &&
+                  production_countries.map(
+                    ({ name, iso_3166_1 }) =>
+                      name && (
+                        <li className="movie__country" key={iso_3166_1}>
+                          {name}
+                        </li>
+                      )
+                  )}
+              </ul>
+            </div>
           </div>
-        </div>
+        </section>
 
-        <div className="movie__additional">
-          <h3>Additional information:</h3>
-          <h4>Cast</h4>
-          <h4>Reviews</h4>
+        <div className="movie__additional ">
+          <h3 className="additional">Additional information:</h3>
 
-          <p>
-            <NavLink to="/movies/:movieId/credits">{cast}</NavLink>
-          </p>
-          <p>
-            <NavLink to="/movies/:movieId/reviews">{reviews}</NavLink>
-          </p>
+          <Link
+            to={`${this.props.match.url}/credits`}
+            className="additional__tab"
+          >
+            Cast
+          </Link>
+          <Link
+            to={`${this.props.match.url}/reviews`}
+            className="additional__tab"
+          >
+            Reviews
+          </Link>
         </div>
+        <div className="section sectionNoBottom"></div>
+        <Route path="/movies/:movieId/credits" component={Cast} exact={false} />
 
         <Route
-          // "https://developers.themoviedb.org/3/movies/get-movie-credits"
-          path="/movies/:movieId/credits"
-          // render={() => <h1>Компонент Cast</h1>}
-          component={Cast}
-          // render={(props) => <Cast {...props} extraPropName="value" />}
-          // render={props =>
-          //   return <Cast {...props}
-          //   authors={this.state.authors}
-          //   cast={ this.state.cast}
-          // />
-          // }
-        />
-        <Route
-          // "https://developers.themoviedb.org/3/movies/get-movie-reviews"
           path="/movies/:movieId/reviews"
-          // render={() => <h1>Компонент Reviews</h1>}
           component={Reviews}
+          exact={false}
         />
       </>
     );
@@ -156,27 +210,4 @@ class MovieDetailsPage extends Component {
 
 export default MovieDetailsPage;
 
-// https://developers.themoviedb.org/3/movies/get-movie-details - запрос полной информации о фильме для страницы кинофильма.
-// https://developers.themoviedb.org/3/movies/get-movie-credits - запрос информации о актёрском составе для страницы кинофильма.
-// https://developers.themoviedb.org/3/movies/get-movie-reviews - запрос обзоров для страницы кинофильма.
-
-//это путь на фильм
-//https://api.themoviedb.org/3/movie/508943?api_key=e8ee72216daf4e999abce8d8e2bbbfa9&language=en-US
-
-// добавить жанры в карточку
-// cast & reviews это линки на доп.инфо (рендер внизу)
-// cast - photo, name, character
-// review - author, review
-// we don't have any reviews for this movie
 // back to the list of movies
-
-//  <script type="text/javascript">
-//       $(document).ready(function () {
-//         $("#menu").on("click", "a", function (event) {
-//           event.preventDefault();
-//           var id = $(this).attr('href'),
-//             top = $(id).offset().top;
-//           $('body,html').animate({ scrollTop: top }, 1500);
-//         });
-//       });
-//     </script>

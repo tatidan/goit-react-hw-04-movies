@@ -1,7 +1,36 @@
-import { Route } from "react-router-dom";
+import { Route, Switch, withRouter } from "react-router-dom";
+import { Suspense } from "react";
 import { mainRoutes } from "./routes/MainRoutes";
 import NavList from "./components/navigation/NavList";
 import LanguageSwitcher from "./components/languageSwitcher/LanguageSwitcher";
+
+const App = () => {
+  return (
+    <>
+      <header className="header">
+        <NavList />
+        <LanguageSwitcher />
+      </header>
+
+      <main>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Switch>
+            {mainRoutes.map(({ path, exact, component }) => (
+              <Route
+                path={path}
+                component={component}
+                exact={exact}
+                key={path}
+              />
+            ))}
+          </Switch>
+        </Suspense>
+      </main>
+    </>
+  );
+};
+
+export default withRouter(App);
 
 // const Test = (props) => {
 //   console.log(props);
@@ -13,23 +42,4 @@ import LanguageSwitcher from "./components/languageSwitcher/LanguageSwitcher";
 //   return <h1>Test title</h1>;
 // });
 
-const App = () => {
-  return (
-    <div className="App">
-      <header className="header">
-        <NavList />
-        <LanguageSwitcher />
-      </header>
-
-      {/* <Test /> */}
-
-      <main>
-        {mainRoutes.map(({ path, exact, component }) => (
-          <Route path={path} component={component} exact={exact} key={path} />
-        ))}
-      </main>
-    </div>
-  );
-};
-
-export default App;
+// <Test />

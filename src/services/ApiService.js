@@ -37,3 +37,43 @@ export const searchMovies = async ({ language, adult, page, query }) => {
     console.log(error.message);
   }
 };
+
+export const searchMovieDetails = async (movieId) => {
+  try {
+    const SearchURL = API_URL + "/movie/" + movieId + "?api_key=" + API_KEY;
+
+    const response = await axios.get(SearchURL);
+    console.log(SearchURL);
+    return response;
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+//api.themoviedb.org/3/movie/{movie_id}/credits?api_key=<<api_key>>&language=en-US
+
+export const searchCast = async (movieId) => {
+  try {
+    const SearchURL =
+      API_URL + "/movie/" + movieId + "/credits?api_key=" + API_KEY;
+
+    const response = await axios.get(SearchURL);
+    console.log(SearchURL);
+    return response;
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const searchReviews = async (movieId) => {
+  try {
+    const SearchURL =
+      API_URL + "/movie/" + movieId + "/reviews?api_key=" + API_KEY;
+
+    const response = await axios.get(SearchURL);
+    console.log(SearchURL);
+    return response;
+  } catch (error) {
+    console.log(error.message);
+  }
+};

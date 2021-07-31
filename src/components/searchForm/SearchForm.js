@@ -87,8 +87,6 @@ export default SearchForm;
 
 //при false results рендерится уведомление "нет результата поиска"
 
-// vote_average - оценка зрителей
-// vote_count - всего проголовавших
 // adult: false  (if true - 18+)
 
 // "genres": [

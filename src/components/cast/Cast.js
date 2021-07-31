@@ -1,38 +1,68 @@
 import React, { Component } from "react";
-import { Route } from "react-router-dom";
+import { searchCast } from "../../services/ApiService";
 
 class Cast extends Component {
   state = {
-    //books: [],
+    cast: null,
   };
 
-  componentDidMount() {
-    console.log("did mount");
-    console.log(Number(this.props.match.params.authorId));
-    const id = Number(this.props.match.params.authorId);
-    console.log(this.props.authors);
-
-    const author = this.props.authors.find((author) => author.id === id);
-    console.log(author);
-    //author можно дестр{books} и получить books
-    //this.setState({ books: books });
+  async componentDidMount() {
+    const { movieId } = this.props.match.params;
+    const response = await searchCast(movieId).then(
+      (response) => response.data
+    );
+    this.setState({ cast: response.cast });
+    console.log(this.state);
+    window.scrollTo({
+      top: document.documentElement.scrollHeight,
+      behavior: "smooth",
+    });
   }
 
-  // componentDidUpdate(prevProps, prevState) {
-  //   console.log("did update");
-  //   console.log(Number(this.props.match.params.authorId));
-  //   console.log(this.props.authors);
-  // }
+  handleUpClick = (e) => {
+    if (e.currentTarget === e.target) {
+      window.scrollTo({
+        bottom: document.documentElement.scrollHeight,
+        behavior: "smooth",
+      });
+    }
+  };
 
   render() {
+    const { cast } = this.state;
     return (
-      <>
-        <h1>Компонент Cast</h1>
-        <Route
-          path="/movies/:movie.id"
-          render={() => <h3>Компонент карточка фильма</h3>}
-        />
-      </>
+      <section className="section">
+        <ul className="cast__list">
+          {cast?.length > 0 &&
+            cast.map(({ profile_path, id, name, character }) => (
+              <>
+                {profile_path && (
+                  <li className="actor__card" key={id}>
+                    <div className="actor__cardWrapper">
+                      <div>
+                        <img
+                          className="actor__photo"
+                          src={`https://image.tmdb.org/t/p/w300/${profile_path}`}
+                          alt={name}
+                        />
+                      </div>
+
+                      <div className="actor__info">
+                        <p className="actor__name"> {name}</p>
+                        <p className="actor__character">
+                          For: <b>{character}</b>
+                        </p>
+                      </div>
+                    </div>
+                  </li>
+                )}
+              </>
+            ))}
+        </ul>
+        <button type="button" onClick={this.handleUpClick} className="buttonUP">
+          UP
+        </button>
+      </section>
     );
   }
 }

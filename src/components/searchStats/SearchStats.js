@@ -10,7 +10,7 @@ const SearchStats = ({
   return (
     <div>
       <div className="search__totalStats">
-        <p className="FullMovieList">
+        <span className="FullMovieList">
           <a
             className="FullMovieLink"
             //добавить якорь для плавной прокрутки
@@ -19,19 +19,15 @@ const SearchStats = ({
           >
             <b>See full movie list</b>
           </a>
-        </p>
-        <p className="search__totalPages">
-          <b>Total pages:</b> {currentPage}/{totalPages}
-        </p>
-        <p className="search__totalResults">
-          <b>Total results:</b> {totalResults}
-        </p>
+        </span>
+        <span className="search__totalPages">
+          <b>Pages loaded:</b> {currentPage} of {totalPages}
+        </span>
+        <span className="search__totalResults">
+          <b>Total matches:</b> {totalResults}
+        </span>
 
-        <button
-          type="button"
-          className="search__button"
-          onClick={handleLoadMore}
-        >
+        <button type="button" className="loadMoreBtn" onClick={handleLoadMore}>
           <svg className="search__icon">
             <use href={sprite + "#icon-images"}></use>
           </svg>

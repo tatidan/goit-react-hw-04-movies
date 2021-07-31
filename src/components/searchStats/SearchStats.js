@@ -1,5 +1,6 @@
 import React from "react";
 import sprite from "../../icons/sprite.svg";
+import ScrollDownBtn from "../ScrollDownBtn/ScrollDownBtn";
 
 const SearchStats = ({
   currentPage,
@@ -10,16 +11,14 @@ const SearchStats = ({
   return (
     <div>
       <div className="search__totalStats">
-        <span className="FullMovieList">
-          <a
-            className="FullMovieLink"
-            //добавить якорь для плавной прокрутки
-            href="#FullMovieList"
-            rel="noopener noreferrer"
-          >
-            <b>See full movie list</b>
-          </a>
-        </span>
+        <a
+          className="FullMovieList"
+          href="#FullMovieList"
+          rel="noopener noreferrer"
+        >
+          <ScrollDownBtn />
+        </a>
+
         <span className="search__totalPages">
           <b>Pages loaded:</b> {currentPage} of {totalPages}
         </span>

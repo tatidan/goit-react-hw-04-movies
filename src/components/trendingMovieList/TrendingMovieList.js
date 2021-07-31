@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { fetchMovies } from "../../services/ApiService";
-import MoviesSlider from "../moviesSlider/MoviesSlider";
+import MoviesSlider from "../MoviesSlider/MoviesSlider";
 
 class TrendingMovieList extends Component {
   state = {

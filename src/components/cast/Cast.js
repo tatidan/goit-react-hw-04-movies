@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { searchCast } from "../../services/ApiService";
+import ScrollUpButton from "../ScrollUpBtn/ScrollUpBtn";
 
 class Cast extends Component {
   state = {
@@ -59,9 +60,7 @@ class Cast extends Component {
               </>
             ))}
         </ul>
-        <button type="button" onClick={this.handleUpClick} className="buttonUP">
-          UP
-        </button>
+        <ScrollUpButton />
       </section>
     );
   }

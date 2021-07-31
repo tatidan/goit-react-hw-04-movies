@@ -1,6 +1,6 @@
 import { Component } from "react";
 import { fetchMovies } from "../services/ApiService";
-import TrendingMovieList from "../components/trendingMovieList/TrendingMovieList";
+import TrendingMovieList from "../components/TrendingMovieList/TrendingMovieList";
 
 class HomePage extends Component {
   state = {

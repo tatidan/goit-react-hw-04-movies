@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { Route } from "react-router-dom";
-import SearchForm from "../components/searchForm/SearchForm";
-import MoviesSlider from "../components/moviesSlider/MoviesSlider";
+import SearchForm from "../components/SearchForm/SearchForm";
+import MoviesSlider from "../components/MoviesSlider/MoviesSlider";
 import { searchMovies } from "../services/ApiService";
 import MovieDetailsPage from "./MovieDetailsPage";
-import FullMovieList from "../components/fullMovieList/FullMovieList";
+import FullMovieList from "../components/FullMovieList/FullMovieList";
 // import { withRouter } from "react-router";
 
 class MoviesPage extends Component {
@@ -58,16 +58,7 @@ class MoviesPage extends Component {
     });
   };
 
-  openMovieDetails = (e) => {
-    if (e.currentTarget === e.target) {
-      console.log("переход на страницу одного фильма");
-    }
-  };
-
   render() {
-    // console.log(this.props.match.url);
-    //тут лежит /movies
-
     return (
       <>
         <SearchForm
@@ -75,17 +66,27 @@ class MoviesPage extends Component {
           total_pages={this.state.total_pages}
           total_results={this.state.total_results}
         />
-        {this.state.movies.length > 1 && (
+        {this.state.movies.length >= 1 && (
           <>
-            <MoviesSlider
-              movies={this.state.movies}
-              onClick={this.openMovieDetails}
-            />
+            <MoviesSlider movies={this.state.movies} />
             <FullMovieList movies={this.state.movies} />
           </>
         )}
+        {/* {
+          (this.state.movies.length = 1 && (
+            <>
+              <FullMovieList movies={this.state.movies} />
+              <p>должен быть сразу переход на MovieDetailsPage</p>
+            </>
+          ))
+        }
+        {this.state.movies.length < 1 && (
+          <>
+            <p>Movie not found, please try again </p>
+          </>
+        )} */}
         <Route
-          path="/movies/:movieId"
+          path={`${this.props.match.url}/:movieId`}
           component={MovieDetailsPage}
           exact={false}
         />

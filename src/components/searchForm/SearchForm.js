@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import sprite from "../../icons/sprite.svg";
 import { searchMovies } from "../../services/ApiService";
-import SearchStats from "../searchStats/SearchStats";
+import SearchStats from "../SearchStats/SearchStats";
 
 class SearchForm extends Component {
   state = {
@@ -59,7 +59,7 @@ class SearchForm extends Component {
                 placeholder="Movie title here"
               />
             </label>
-            <button className="search__button" type="submit">
+            <button className="loadMoreBtn" type="submit">
               <svg className="search__icon">
                 <use href={sprite + "#icon-search"}></use>
               </svg>

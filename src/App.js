@@ -1,17 +1,12 @@
 import { Route, Switch, withRouter } from "react-router-dom";
 import { Suspense } from "react";
 import { mainRoutes } from "./routes/MainRoutes";
-import NavList from "./components/navigation/NavList";
-import LanguageSwitcher from "./components/languageSwitcher/LanguageSwitcher";
+import AppBar from "./components/AppBar/AppBar";
 
 const App = () => {
   return (
     <>
-      <header className="header">
-        <NavList />
-        <LanguageSwitcher />
-      </header>
-
+      <AppBar />
       <main>
         <Suspense fallback={<div>Loading...</div>}>
           <Switch>

@@ -1,10 +1,10 @@
 import React from "react";
 import { Slide } from "react-slideshow-image";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import "react-slideshow-image/dist/styles.css";
 import defaultImg from "../../images/movie-in-prod.jpg";
 
-const MoviesSlider = ({ movies }) => {
+const MoviesSlider = ({ movies, location }) => {
   const fadeProperties = {
     duration: 2000,
     pauseOnHover: true,
@@ -19,7 +19,10 @@ const MoviesSlider = ({ movies }) => {
       <Slide {...fadeProperties}>
         {movies.map((movie) => (
           <div className="each-fade" key={movie.id}>
-            <Link className="TrendingMovie__link" to={`movies/${movie.id}`}>
+            <Link
+              className="TrendingMovie__link"
+              to={{ pathname: `movies/${movie.id}`, state: { from: location } }}
+            >
               <img
                 className="TrendingMovie__poster"
                 src={
@@ -61,4 +64,4 @@ const MoviesSlider = ({ movies }) => {
   );
 };
 
-export default MoviesSlider;
+export default withRouter(MoviesSlider);

@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Link, Route } from "react-router-dom";
-import Cast from "../components/cast/Cast";
-import Reviews from "../components/reviews/Reviews";
-import GoBackButton from "../components/goBackButton/GoBackButton";
+import Cast from "../components/Cast/Cast";
+import Reviews from "../components/Reviews/Reviews";
+// import GoBackButton from "../components/GoBackButton/GoBackButton";
 import { searchMovieDetails } from "../services/ApiService";
 import sprite from "../icons/sprite.svg";
 
@@ -47,6 +47,15 @@ class MovieDetailsPage extends Component {
     this.setState({ release_date: year });
   };
 
+  handleGoBack = () => {
+    const { location, history } = this.props;
+    if (location.state && location.state.from) {
+      return history.push(location.state.from);
+    }
+    history.push("/movies");
+    // history.push(location?.state?.from || "/movies");
+  };
+
   render() {
     const {
       title,
@@ -65,13 +74,17 @@ class MovieDetailsPage extends Component {
       production_countries,
     } = this.state;
 
-    // history.push(path [, state]) - добавляет новую запись на стек записей истории.
-    // history.replace(path [, state]) - подменяет текущую запись на новую на стеке записей истории.
-
     return (
       <>
         <section className="section">
-          <GoBackButton />
+          <button
+            type="button"
+            onClick={this.handleGoBack}
+            className="goBackBtn"
+          >
+            Go back
+          </button>
+          {/* <GoBackButton /> */}
           <div className="movie__card">
             <div className="movie__posterWrapper">
               {poster_path && (

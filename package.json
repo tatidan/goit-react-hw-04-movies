@@ -12,6 +12,9 @@
     "react-dom": "^17.0.2",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
+    "react-scroll-button": "^1.1.2",
+    "react-scroll-down": "^0.1.6",
+    "react-scroll-up-button": "^1.6.4",
     "react-slideshow-image": "^3.5.0",
     "sass": "^1.36.0",
     "web-vitals": "^1.1.2"

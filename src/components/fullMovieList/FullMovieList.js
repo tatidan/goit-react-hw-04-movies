@@ -1,13 +1,17 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
+import ScrollUpButton from "../ScrollUpBtn/ScrollUpBtn";
 
-const FullMovieList = ({ movies }) => {
+const FullMovieList = ({ movies, location }) => {
   return (
     <>
       <ul className="FullMovieList__list">
         {movies.map((movie) => (
           <li key={movie.id}>
-            <Link className="FullMovieList__link" to={`movies/${movie.id}`}>
+            <Link
+              className="FullMovieList__link"
+              to={{ pathname: `movies/${movie.id}`, state: { from: location } }}
+            >
               {movie.title ? (
                 <span className="FullMovieList__movieTitle">
                   {movie.title}
@@ -33,8 +37,9 @@ const FullMovieList = ({ movies }) => {
           </li>
         ))}
       </ul>
+      <ScrollUpButton />
     </>
   );
 };
 
-export default FullMovieList;
+export default withRouter(FullMovieList);

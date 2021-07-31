@@ -31,7 +31,7 @@ class Reviews extends Component {
                 )
             )}
         </ul>
-        {!!results && <p>There aren't any reviews for this movie yet</p>}
+        {/* {results || <p>There aren't any reviews for this movie yet</p>} */}
       </>
     );
   }

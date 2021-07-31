@@ -1,3 +1,5 @@
+// =====!!!!!===все стили прописаны только для desktop===
+
 body {
   background-color: #fff;
   color: #212121;
@@ -115,8 +117,6 @@ ul {
     width: 400px;
   }
   &__poster {
-    // display: block;
-    // width: 700px;
     width: 100%;
 
     -webkit-box-shadow: 5px 5px 5px -5px rgba(34, 60, 80, 0.6);
@@ -232,10 +232,6 @@ ul {
   }
 }
 
-// .FullMovieList {
-//   display: flex;
-//   flex-direction: column;
-// }
 .FullMovieLink {
   text-decoration: none;
   color: darkcyan;
@@ -257,12 +253,15 @@ ul {
 
 .TrendingMovie {
   &__poster {
-    // height: 280px;
-    width: 100%;
+    height: 280px;
     object-fit: cover;
   }
 
   &__movieTitle {
+    //половина стилей не применяются
+    //текст выпадает за карточку
+    // width: 100%;
+    // overflow: hidden;
     font-size: 14px;
     font-weight: 700;
     text-transform: uppercase;
@@ -355,6 +354,7 @@ ul {
     flex-direction: column;
     align-items: stretch;
     height: 300px;
+    overflow: hidden;
     -webkit-box-shadow: 5px 5px 5px -5px rgba(34, 60, 80, 0.6);
     -moz-box-shadow: 5px 5px 5px -5px rgba(34, 60, 80, 0.6);
     box-shadow: 5px 5px 5px -5px rgba(34, 60, 80, 0.6);
@@ -422,7 +422,7 @@ ul {
 .loadMoreBtn {
   display: flex;
   align-items: center;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
   width: 145px;
   padding: 10px;

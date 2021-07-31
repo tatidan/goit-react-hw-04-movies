@@ -13,8 +13,8 @@ const LanguageSwitcher = () => {
         id="language-switcher"
       >
         <option value="English">English</option>
-        <option value="Русский">Русский</option>
-        <option value="Українська">Українська</option>
+        {/* <option value="Русский">Русский</option> */}
+        {/* <option value="Українська">Українська</option> */}
       </select>
     </div>
   );

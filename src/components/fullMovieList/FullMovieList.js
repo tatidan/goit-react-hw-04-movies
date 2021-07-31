@@ -9,9 +9,25 @@ const FullMovieList = ({ movies }) => {
           <li key={movie.id}>
             <Link className="FullMovieList__link" to={`movies/${movie.id}`}>
               {movie.title ? (
-                <span className="FullMovieList__movieTitle">{movie.title}</span>
+                <span className="FullMovieList__movieTitle">
+                  {movie.title}
+                  {movie.release_date && (
+                    <>
+                      <span> (</span> {Number.parseInt(movie.release_date)}
+                      <span>)</span>
+                    </>
+                  )}
+                </span>
               ) : (
-                <span className="FullMovieList__movieTitle">{movie.name}</span>
+                <span className="FullMovieList__movieTitle">
+                  {movie.name}
+                  {movie.release_date && (
+                    <>
+                      <span> (</span> {Number.parseInt(movie.release_date)}
+                      <span>)</span>
+                    </>
+                  )}
+                </span>
               )}
             </Link>
           </li>

@@ -76,13 +76,13 @@ class MoviesPage extends Component {
           total_results={this.state.total_results}
         />
         {this.state.movies.length > 1 && (
-          <section className="section">
+          <>
             <MoviesSlider
               movies={this.state.movies}
               onClick={this.openMovieDetails}
             />
             <FullMovieList movies={this.state.movies} />
-          </section>
+          </>
         )}
         <Route
           path="/movies/:movieId"

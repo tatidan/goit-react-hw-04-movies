@@ -12,7 +12,7 @@ class Cast extends Component {
       (response) => response.data
     );
     this.setState({ cast: response.cast });
-    console.log(this.state);
+
     window.scrollTo({
       top: document.documentElement.scrollHeight,
       behavior: "smooth",

@@ -34,7 +34,7 @@ class MovieDetailsPage extends Component {
 
   async componentDidMount() {
     const { movieId } = this.props.match.params;
-    console.log(movieId);
+
     const response = await searchMovieDetails(movieId).then(
       (response) => response.data
     );
@@ -43,8 +43,7 @@ class MovieDetailsPage extends Component {
   }
 
   changeDateToYear = () => {
-    const yearTmp = this.state.release_date;
-    const year = Number.parseInt(yearTmp);
+    const year = Number.parseInt(this.state.release_date);
     this.setState({ release_date: year });
   };
 

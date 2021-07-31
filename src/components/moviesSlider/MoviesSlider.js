@@ -34,9 +34,25 @@ const MoviesSlider = ({ movies }) => {
             </Link>
 
             {movie.title ? (
-              <p className="TrendingMovie__movieTitle">{movie.title}</p>
+              <p className="TrendingMovie__movieTitle">
+                {movie.title}
+                {movie.release_date && (
+                  <>
+                    <span> (</span> {Number.parseInt(movie.release_date)}
+                    <span>)</span>
+                  </>
+                )}
+              </p>
             ) : (
-              <p className="TrendingMovie__movieTitle">{movie.name}</p>
+              <p className="TrendingMovie__movieTitle">
+                {movie.name}
+                {movie.release_date && (
+                  <>
+                    <span> (</span> {Number.parseInt(movie.release_date)}
+                    <span>)</span>
+                  </>
+                )}
+              </p>
             )}
           </div>
         ))}

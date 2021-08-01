@@ -5,6 +5,7 @@ import Reviews from "../components/Reviews/Reviews";
 // import GoBackButton from "../components/GoBackButton/GoBackButton";
 import { searchMovieDetails } from "../services/ApiService";
 import sprite from "../icons/sprite.svg";
+import defaultImg from "../images/movie-in-prod.jpg";
 
 class MovieDetailsPage extends Component {
   state = {
@@ -87,20 +88,30 @@ class MovieDetailsPage extends Component {
           {/* <GoBackButton /> */}
           <div className="movie__card">
             <div className="movie__posterWrapper">
-              {poster_path && (
-                <img
-                  className="movie__poster"
-                  src={`https://image.tmdb.org/t/p/w300/${poster_path}`}
-                  alt={title}
-                />
+              {/* {poster_path && ( */}
+              <img
+                className="movie__poster"
+                src={
+                  poster_path
+                    ? `https://image.tmdb.org/t/p/w300/${poster_path}`
+                    : defaultImg
+                }
+                alt={title}
+              />
+              {/* )} */}
+              {tagline && (
+                <p>
+                  <b>Tagline:</b> {tagline}
+                </p>
               )}
 
-              <p>
-                <b>Tagline:</b> {tagline}
-              </p>
-
               <p className="movie__outerLinks">
-                <a href={homepage} target="_blank" rel="noreferrer">
+                <a
+                  href={homepage}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="movie__outerlink"
+                >
                   Movie page
                 </a>
                 <span> </span>
@@ -108,6 +119,7 @@ class MovieDetailsPage extends Component {
                   href={`https://www.imdb.com/title/${imdb_id}`}
                   target="_blank"
                   rel="noreferrer"
+                  className="movie__outerlink"
                 >
                   Trailer
                 </a>
@@ -116,7 +128,8 @@ class MovieDetailsPage extends Component {
 
             <div className="movie__detailsWrapper">
               <h2>
-                {title} ({release_date})
+                {/* {title} {!!release_date && (<span>(</span> release_date <span>)</span>)} */}
+                {title} {!!release_date && release_date}
               </h2>
               <p className="movie__rates">
                 {!adult && <span>R</span>}
@@ -157,7 +170,7 @@ class MovieDetailsPage extends Component {
                 <b>Overview:</b> {overview}
               </p>
 
-              <h4>Production companies:</h4>
+              {production_companies === null && <h4>Production companies:</h4>}
               <ul className="movie__companies">
                 {production_companies?.length > 0 &&
                   production_companies.map(
@@ -175,7 +188,7 @@ class MovieDetailsPage extends Component {
                       )
                   )}
               </ul>
-              <b>Production countries:</b>
+              {production_countries === null && <b>Production countries:</b>}
               <ul className="movie__countries">
                 {production_countries?.length > 0 &&
                   production_countries.map(

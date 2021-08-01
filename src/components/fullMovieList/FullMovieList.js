@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
 import ScrollUpButton from "../ScrollUpBtn/ScrollUpBtn";
+import sprite from "../../icons/sprite.svg";
 
 const FullMovieList = ({ movies, location }) => {
   return (
@@ -10,14 +11,21 @@ const FullMovieList = ({ movies, location }) => {
           <li key={movie.id}>
             <Link
               className="FullMovieList__link"
-              to={{ pathname: `movies/${movie.id}`, state: { from: location } }}
+              to={{
+                pathname: `movies/${movie.id}`,
+                state: { from: location },
+              }}
             >
+              <svg className="FullMovieList__icon">
+                <use href={sprite + "#icon-video-camera"}></use>
+              </svg>
               {movie.title ? (
                 <span className="FullMovieList__movieTitle">
                   {movie.title}
                   {movie.release_date && (
                     <>
-                      <span> (</span> {Number.parseInt(movie.release_date)}
+                      <span> (</span>
+                      {Number.parseInt(movie.release_date)}
                       <span>)</span>
                     </>
                   )}
@@ -37,6 +45,7 @@ const FullMovieList = ({ movies, location }) => {
           </li>
         ))}
       </ul>
+
       <ScrollUpButton />
     </>
   );

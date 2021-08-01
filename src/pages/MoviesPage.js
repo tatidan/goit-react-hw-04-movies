@@ -66,10 +66,19 @@ class MoviesPage extends Component {
           total_pages={this.state.total_pages}
           total_results={this.state.total_results}
         />
-        {this.state.movies.length >= 1 && (
+        {this.state.movies.length > 1 && (
           <>
-            <MoviesSlider movies={this.state.movies} />
-            <FullMovieList movies={this.state.movies} />
+            {this.state.movies.length > 0 ? (
+              <>
+                <section className="section">
+                  <MoviesSlider movies={this.state.movies} />
+                </section>
+                <FullMovieList movies={this.state.movies} />
+              </>
+            ) : (
+              <p>No movies found. Please try again.</p>
+            )}
+            {/* рендер одного фильма работает некорректно */}
           </>
         )}
         {/* {

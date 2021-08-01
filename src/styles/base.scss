@@ -94,7 +94,7 @@ ul {
     display: flex;
     width: 60vw;
     margin-left: 20px;
-    margin-top: 20px;
+    margin-top: 10px;
     padding: 20px;
     border-radius: 8px;
     border: 1px solid darkcyan;
@@ -111,6 +111,7 @@ ul {
     box-shadow: 5px 5px 5px -5px rgba(34, 60, 80, 0.6);
   }
   &__overview {
+    padding-right: 5px;
     -webkit-box-shadow: 5px 5px 5px -5px rgba(34, 60, 80, 0.6);
     -moz-box-shadow: 5px 5px 5px -5px rgba(34, 60, 80, 0.6);
     box-shadow: 5px 5px 5px -5px rgba(34, 60, 80, 0.6);
@@ -131,14 +132,16 @@ ul {
     justify-content: space-between;
     padding: 20px;
   }
-
+  &__outerlink {
+    color: darkcyan;
+  }
   &__companies {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    -webkit-box-shadow: 5px 5px 5px -5px rgba(34, 60, 80, 0.6);
-    -moz-box-shadow: 5px 5px 5px -5px rgba(34, 60, 80, 0.6);
-    box-shadow: 5px 5px 5px -5px rgba(34, 60, 80, 0.6);
+    // -webkit-box-shadow: 5px 5px 5px -5px rgba(34, 60, 80, 0.6);
+    // -moz-box-shadow: 5px 5px 5px -5px rgba(34, 60, 80, 0.6);
+    // box-shadow: 5px 5px 5px -5px rgba(34, 60, 80, 0.6);
   }
   &__companiesLogo {
     width: 100px;
@@ -203,6 +206,9 @@ ul {
     border-radius: 8px;
     border-color: darkcyan;
     color: darkcyan;
+    -webkit-box-shadow: 5px 5px 5px -3px rgba(0, 139, 139, 0.2);
+    -moz-box-shadow: 5px 5px 5px -3px rgba(0, 139, 139, 0.2);
+    box-shadow: 5px 5px 5px -3px rgba(0, 139, 139, 0.2);
 
     &:hover,
     &:focus {
@@ -329,8 +335,9 @@ ul {
 
 .cast__list {
   display: flex;
-
   flex-wrap: wrap;
+  max-height: 88vh;
+  overflow-y: hidden;
 }
 .actor {
   &__card {
@@ -387,6 +394,9 @@ ul {
   padding: 8px;
   border: 1px solid darkcyan;
   color: darkcyan;
+  -webkit-box-shadow: 5px 5px 5px -3px rgba(0, 139, 139, 0.2);
+  -moz-box-shadow: 5px 5px 5px -3px rgba(0, 139, 139, 0.2);
+  box-shadow: 5px 5px 5px -3px rgba(0, 139, 139, 0.2);
 
   &:hover,
   &:focus {
@@ -408,10 +418,20 @@ ul {
     height: 250px;
     float: left;
     margin-left: 60px;
+    margin-top: 10px;
   }
 
   &__movieTitle {
-    font-size: 14px;
+    font-size: 16px;
+    line-height: 2;
+    color: darkcyan;
+    font-family: inherit;
+  }
+  &__icon {
+    fill: darkcyan;
+    width: 16px;
+    height: 16px;
+    margin-right: 10px;
   }
 }
 
@@ -429,6 +449,9 @@ ul {
   border-radius: 8px;
   border-color: darkcyan;
   color: darkcyan;
+  -webkit-box-shadow: 5px 5px 5px -3px rgba(34, 60, 80, 0.2);
+  -moz-box-shadow: 5px 5px 5px -3px rgba(34, 60, 80, 0.2);
+  box-shadow: 5px 5px 5px -3px rgba(34, 60, 80, 0.2);
   &:hover,
   &:focus {
     background-color: darkcyan;
@@ -480,10 +503,34 @@ ul {
   border-radius: 8px;
   border-color: darkcyan;
   color: darkcyan;
+  -webkit-box-shadow: 5px 5px 5px -3px rgba(0, 139, 139, 0.2);
+  -moz-box-shadow: 5px 5px 5px -3px rgba(0, 139, 139, 0.2);
+  box-shadow: 5px 5px 5px -3px rgba(0, 139, 139, 0.2);
 
   &:hover,
   &:focus {
     background-color: darkcyan;
     color: white;
+  }
+}
+
+// * {
+//   outline: 1px solid red;
+// }
+
+.reviews {
+  &__list {
+    margin-top: 20px;
+    max-width: 70vw;
+    max-height: 85vh;
+    overflow-y: hidden;
+  }
+  &__title {
+    text-transform: uppercase;
+    font-size: 14px;
+  }
+  &__content {
+    text-align: justify;
+    font-size: 12px;
   }
 }

@@ -15,52 +15,57 @@ const MoviesSlider = ({ movies, location }) => {
   };
 
   return (
-    <div className="slide-container">
-      <Slide {...fadeProperties}>
-        {movies.map((movie) => (
-          <div className="each-fade" key={movie.id}>
-            <Link
-              className="TrendingMovie__link"
-              to={{ pathname: `movies/${movie.id}`, state: { from: location } }}
-            >
-              <img
-                className="TrendingMovie__poster"
-                src={
-                  movie.poster_path || movie.backdrop_path
-                    ? `https://image.tmdb.org/t/p/w300/${
-                        movie.poster_path || movie.backdrop_path
-                      }`
-                    : defaultImg
-                }
-                alt={movie.title}
-              />
-            </Link>
+    <>
+      <div className="slide-container">
+        <Slide {...fadeProperties}>
+          {movies.map((movie) => (
+            <div className="each-fade" key={movie.id}>
+              <Link
+                className="TrendingMovie__link"
+                to={{
+                  pathname: `movies/${movie.id}`,
+                  state: { from: location },
+                }}
+              >
+                <img
+                  className="TrendingMovie__poster"
+                  src={
+                    movie.poster_path || movie.backdrop_path
+                      ? `https://image.tmdb.org/t/p/w300/${
+                          movie.poster_path || movie.backdrop_path
+                        }`
+                      : defaultImg
+                  }
+                  alt={movie.title}
+                />
+              </Link>
 
-            {movie.title ? (
-              <p className="TrendingMovie__movieTitle">
-                {movie.title}
-                {movie.release_date && (
-                  <>
-                    <span> (</span> {Number.parseInt(movie.release_date)}
-                    <span>)</span>
-                  </>
-                )}
-              </p>
-            ) : (
-              <p className="TrendingMovie__movieTitle">
-                {movie.name}
-                {movie.release_date && (
-                  <>
-                    <span> (</span> {Number.parseInt(movie.release_date)}
-                    <span>)</span>
-                  </>
-                )}
-              </p>
-            )}
-          </div>
-        ))}
-      </Slide>
-    </div>
+              {movie.title ? (
+                <p className="TrendingMovie__movieTitle">
+                  {movie.title}
+                  {movie.release_date && (
+                    <>
+                      <span> (</span> {Number.parseInt(movie.release_date)}
+                      <span>)</span>
+                    </>
+                  )}
+                </p>
+              ) : (
+                <p className="TrendingMovie__movieTitle">
+                  {movie.name}
+                  {movie.release_date && (
+                    <>
+                      <span> (</span> {Number.parseInt(movie.release_date)}
+                      <span>)</span>
+                    </>
+                  )}
+                </p>
+              )}
+            </div>
+          ))}
+        </Slide>
+      </div>
+    </>
   );
 };
 

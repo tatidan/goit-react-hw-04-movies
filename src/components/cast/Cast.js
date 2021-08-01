@@ -20,19 +20,11 @@ class Cast extends Component {
     });
   }
 
-  handleUpClick = (e) => {
-    if (e.currentTarget === e.target) {
-      window.scrollTo({
-        bottom: document.documentElement.scrollHeight,
-        behavior: "smooth",
-      });
-    }
-  };
-
   render() {
     const { cast } = this.state;
     return (
       <section className="section">
+        {cast === null && <p>No cast provided</p>}
         <ul className="cast__list">
           {cast?.length > 0 &&
             cast.map(({ profile_path, id, name, character }) => (

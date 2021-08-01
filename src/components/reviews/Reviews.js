@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { searchReviews } from "../../services/ApiService";
+import ScrollUpButton from "../ScrollUpBtn/ScrollUpBtn";
 
 class Reviews extends Component {
   state = {
@@ -12,26 +13,34 @@ class Reviews extends Component {
       (response) => response.data.results
     );
     this.setState({ results: response });
+
+    window.scrollTo({
+      top: document.documentElement.scrollHeight,
+      behavior: "smooth",
+    });
   }
 
   render() {
     const { results } = this.state;
     return (
       <>
-        <ul>
+        <ul className="reviews__list" id="ReviewsList">
           {results?.length > 0 &&
             results.map(
               ({ author, id, content }) =>
                 author && (
                   <li key={id}>
-                    {" "}
-                    <p> {author}</p>
-                    <p> {content}</p>
+                    <b className="reviews__title"> {author}:</b>
+                    <p className="reviews__content">
+                      {" "}
+                      <span>"</span> {content} <span>"</span>
+                    </p>
                   </li>
                 )
             )}
         </ul>
         {/* {results || <p>There aren't any reviews for this movie yet</p>} */}
+        <ScrollUpButton />
       </>
     );
   }

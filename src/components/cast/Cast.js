@@ -51,7 +51,7 @@ class Cast extends Component {
               </>
             ))
           ) : (
-            <p>No cast provided</p>
+            <p className="notification">No cast provided</p>
           )}
         </ul>
         )

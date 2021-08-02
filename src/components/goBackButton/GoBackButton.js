@@ -1,26 +1,11 @@
-// import React from "react";
-// import { Link, withRouter } from "react-router-dom";
+import React from "react";
 
-// const GoBackButton = ({ location, history }) => {
-//   return (
-//     <>
-//       <Link
-//         to={{
-//           pathname: "/movies",
-//           state: { from: location.pathname },
-//         }}
-//         className="goBackBtn"
-//         onClick={() => {
-//           this.props.history.push("/movies");
-//         }}
-//       >
-//         Back to movies
-//       </Link>
-//     </>
-//   );
-// };
+const GoBackButton = ({ handleGoBack }) => {
+  return (
+    <button type="button" onClick={handleGoBack} className="goBackBtn">
+      Go back
+    </button>
+  );
+};
 
-// export default withRouter(GoBackButton);
-
-// history.push(path [, state]) - добавляет новую запись на стек записей истории.
-// history.replace(path [, state]) - подменяет текущую запись на новую на стеке записей истории.
+export default GoBackButton;

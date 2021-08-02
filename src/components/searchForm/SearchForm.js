@@ -93,8 +93,6 @@ export default withRouter(SearchForm);
 
 //как и когда очистить input value?
 
-//при false results рендерится уведомление "нет результата поиска"
-
 // adult: false  (if true - 18+)
 
 //поиск по фамилии актера

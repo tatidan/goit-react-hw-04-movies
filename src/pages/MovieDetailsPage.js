@@ -1,24 +1,10 @@
 import React, { Component } from "react";
 import { Link, Route } from "react-router-dom";
+import { searchMovieDetails } from "../services/ApiService";
 import Cast from "../components/Cast/Cast";
 import Reviews from "../components/Reviews/Reviews";
-// import GoBackButton from "../components/GoBackButton/GoBackButton";
-import { searchMovieDetails } from "../services/ApiService";
-import sprite from "../icons/sprite.svg";
-import defaultImg from "../images/movie-in-prod.jpg";
-
-const getIcon = (vote_average) => {
-  if (vote_average <= 5) {
-    return "#icon-star-empty";
-  }
-
-  if (vote_average < 8 && vote_average > 5) {
-    return "#icon-star-half";
-  }
-  if (vote_average >= 8) {
-    return "#icon-star-full";
-  }
-};
+import GoBackButton from "../components/GoBackButton/GoBackButton";
+import MovieCard from "../components/MovieCard/MovieCard";
 
 class MovieDetailsPage extends Component {
   state = {
@@ -63,145 +49,20 @@ class MovieDetailsPage extends Component {
 
   handleGoBack = () => {
     const { location, history } = this.props;
-    if (location.state && location.state.from) {
-      return history.push(location.state.from);
-    }
-    history.push(location?.state?.from || "/movies");
+    history.push(location.state?.from || "/movies");
   };
 
   render() {
-    const {
-      title,
-      release_date,
-      runtime,
-      overview,
-      poster_path,
-      imdb_id,
-      vote_average,
-      vote_count,
-      tagline,
-      adult,
-      genres,
-      homepage,
-      production_companies,
-      production_countries,
-    } = this.state;
+    const movieDetails = this.state;
 
     return (
       <>
         <section className="section">
-          <button
-            type="button"
-            onClick={this.handleGoBack}
-            className="goBackBtn"
-          >
-            Go back
-          </button>
-          {/* <GoBackButton /> */}
-          <div className="movie__card">
-            <div className="movie__posterWrapper">
-              {/* {poster_path && ( */}
-              <img
-                className="movie__poster"
-                src={
-                  poster_path
-                    ? `https://image.tmdb.org/t/p/w300/${poster_path}`
-                    : defaultImg
-                }
-                alt={title}
-              />
-              {/* )} */}
-              {tagline && (
-                <p>
-                  <b>Tagline:</b> {tagline}
-                </p>
-              )}
-
-              <p className="movie__outerLinks">
-                <a
-                  href={homepage}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="movie__outerlink"
-                >
-                  Movie page
-                </a>
-                <span> </span>
-                <a
-                  href={`https://www.imdb.com/title/${imdb_id}`}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="movie__outerlink"
-                >
-                  Trailer
-                </a>
-              </p>
-            </div>
-
-            <div className="movie__detailsWrapper">
-              <h2>
-                {/* {title} {!!release_date && (<span>(</span> release_date <span>)</span>)} */}
-                {title} {!!release_date && release_date}
-              </h2>
-              <p className="movie__rates">
-                {!adult && <span>R</span>}
-                <b> * </b> {runtime} mins
-                <b> * </b>
-                {vote_average && vote_count ? (
-                  <>
-                    <svg className="NavLink__icon">
-                      <use href={sprite + getIcon(vote_average)}></use>
-                    </svg>
-                    {vote_average} / 10 <b> * Votes:</b> {vote_count}
-                  </>
-                ) : (
-                  <span>Unrated</span>
-                )}
-                <b> * </b>
-                {genres?.length > 0 &&
-                  genres.map(
-                    ({ name, id }) => name && <span key={id}>{name}</span>
-                  )}
-              </p>
-              <p className="movie__overview">
-                <b>Overview:</b> {overview}
-              </p>
-
-              {!!production_companies?.length && <h4>Production companies:</h4>}
-              <ul className="movie__companies">
-                {production_companies?.length > 0 &&
-                  production_companies.map(
-                    (company) =>
-                      company.logo_path && (
-                        <li key={company.name}>
-                          <span>
-                            <img
-                              className="movie__companiesLogo"
-                              src={`https://image.tmdb.org/t/p/w300/${company.logo_path}`}
-                              alt={company.name}
-                            />
-                          </span>
-                        </li>
-                      )
-                  )}
-              </ul>
-              {!!production_countries?.length && <b>Production countries:</b>}
-              <ul className="movie__countries">
-                {production_countries?.length > 0 &&
-                  production_countries.map(
-                    ({ name, iso_3166_1 }) =>
-                      name && (
-                        <li className="movie__country" key={iso_3166_1}>
-                          {name}
-                        </li>
-                      )
-                  )}
-              </ul>
-            </div>
-          </div>
+          <GoBackButton handleGoBack={this.handleGoBack} />
+          <MovieCard movieDetails={movieDetails} />
         </section>
 
-        <div className="movie__additional ">
+        <div>
           <h3 className="additional">Additional information:</h3>
 
           <Link
@@ -210,6 +71,7 @@ class MovieDetailsPage extends Component {
           >
             Cast
           </Link>
+
           <Link
             to={`${this.props.match.url}/reviews`}
             className="additional__tab"
@@ -217,7 +79,7 @@ class MovieDetailsPage extends Component {
             Reviews
           </Link>
         </div>
-        <div className="section sectionNoBottom"></div>
+
         <Route path="/movies/:movieId/credits" component={Cast} exact={false} />
 
         <Route

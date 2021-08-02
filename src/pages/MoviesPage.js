@@ -26,9 +26,7 @@ class MoviesPage extends Component {
     page: 1,
   };
 
-  //NOTIFICATION: "найдено Х совпадений", BTN: "загрузить больше?""
   //loadMore дорендерить в слайдер путем передачи в movies NewMovies
-
   //в didUpdate добавить check page
 
   componentDidMount() {
@@ -75,34 +73,22 @@ class MoviesPage extends Component {
           total_pages={this.state.total_pages}
           total_results={this.state.total_results}
         />
-        {this.state.movies.length > 1 && (
-          <>
-            {this.state.movies.length > 0 ? (
-              <>
-                <section className="section">
-                  <MoviesSlider movies={this.state.movies} />
-                </section>
-                <FullMovieList movies={this.state.movies} />
-              </>
-            ) : (
-              <p>No movies found. Please try again.</p>
-            )}
-            {/* рендер одного фильма работает некорректно */}
-          </>
-        )}
-        {/* {
-          (this.state.movies.length = 1 && (
+
+        <>
+          {this.state.movies.length > 0 && this.state.searchQuery ? (
             <>
+              <section className="section">
+                <MoviesSlider movies={this.state.movies} />
+              </section>
               <FullMovieList movies={this.state.movies} />
-              <p>должен быть сразу переход на MovieDetailsPage</p>
             </>
-          ))
-        }
-        {this.state.movies.length < 1 && (
-          <>
-            <p>Movie not found, please try again </p>
-          </>
-        )} */}
+          ) : (
+            this.state.searchQuery && (
+              <p className="notification">No movies found. Please try again.</p>
+            )
+          )}
+        </>
+
         <Route
           path={`${this.props.match.url}/:movieId`}
           component={MovieDetailsPage}

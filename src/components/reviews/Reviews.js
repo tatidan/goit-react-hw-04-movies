@@ -38,7 +38,9 @@ class Reviews extends Component {
                 )
             )
           ) : (
-            <p>There aren't any reviews for this movie yet</p>
+            <p className="notification">
+              There aren't any reviews for this movie yet
+            </p>
           )}
         </ul>
 

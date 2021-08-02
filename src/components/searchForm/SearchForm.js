@@ -3,6 +3,7 @@ import { withRouter } from "react-router-dom";
 import { searchMovies } from "../../services/ApiService";
 import SearchStats from "../SearchStats/SearchStats";
 import sprite from "../../icons/sprite.svg";
+import Section from "../Section/Section";
 
 class SearchForm extends Component {
   state = {
@@ -27,17 +28,16 @@ class SearchForm extends Component {
     // this.reset();
   };
 
-  handleLoadMore = (e) => {
-    e.currentTarget === e.target &&
-      this.setState({ page: this.state.page + 1 });
+  handleLoadMore = () => {
+    this.setState({ page: this.state.page + 1 });
+    // номер страницы не должен превышать total_pages
 
     const { page, query } = this.state;
     searchMovies({ page: page, query: query }).then(({ data }) => {
-      console.log(data);
+      // console.log(data);
       this.setState({ newMovies: [...this.state.newMovies, ...data.results] });
-
-      console.log(this.state.newMovies);
-      console.log(this.state.page);
+      // console.log(this.state.newMovies);
+      // console.log(this.state.page);
     });
   };
   // в массиве NewMovies лежат все фильмы подгруженные по LoadMore
@@ -51,7 +51,7 @@ class SearchForm extends Component {
     const { total_results, total_pages } = this.props;
 
     return (
-      <section className="section">
+      <Section>
         <div className="search__wrapper">
           <form className="search__form" onSubmit={this.handleSubmit}>
             <img src="../icons/sprite.svg#icon-search" alt="" />
@@ -84,14 +84,12 @@ class SearchForm extends Component {
             />
           )}
         </div>
-      </section>
+      </Section>
     );
   }
 }
 
 export default withRouter(SearchForm);
-
-//как и когда очистить input value?
 
 // adult: false  (if true - 18+)
 

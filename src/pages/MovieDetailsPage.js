@@ -5,6 +5,7 @@ import Cast from "../components/Cast/Cast";
 import Reviews from "../components/Reviews/Reviews";
 import GoBackButton from "../components/GoBackButton/GoBackButton";
 import MovieCard from "../components/MovieCard/MovieCard";
+import Section from "../components/Section/Section";
 
 class MovieDetailsPage extends Component {
   state = {
@@ -57,28 +58,26 @@ class MovieDetailsPage extends Component {
 
     return (
       <>
-        <section className="section">
+        <Section>
           <GoBackButton handleGoBack={this.handleGoBack} />
           <MovieCard movieDetails={movieDetails} />
-        </section>
+        </Section>
 
-        <div>
-          <h3 className="additional">Additional information:</h3>
+        <h3 className="additional">Additional information:</h3>
 
-          <Link
-            to={`${this.props.match.url}/credits`}
-            className="additional__tab"
-          >
-            Cast
-          </Link>
+        <Link
+          to={`${this.props.match.url}/credits`}
+          className="additional__tab"
+        >
+          Cast
+        </Link>
 
-          <Link
-            to={`${this.props.match.url}/reviews`}
-            className="additional__tab"
-          >
-            Reviews
-          </Link>
-        </div>
+        <Link
+          to={`${this.props.match.url}/reviews`}
+          className="additional__tab"
+        >
+          Reviews
+        </Link>
 
         <Route path="/movies/:movieId/credits" component={Cast} exact={false} />
 

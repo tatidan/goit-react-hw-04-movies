@@ -14,11 +14,7 @@ class HomePage extends Component {
   }
 
   render() {
-    return (
-      <>
-        <TrendingMovieList movies={this.state.movies} />
-      </>
-    );
+    return <TrendingMovieList movies={this.state.movies} />;
   }
 }
 

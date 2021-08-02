@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { fetchMovies } from "../../services/ApiService";
 import MoviesSlider from "../MoviesSlider/MoviesSlider";
+import Section from "../Section/Section";
 
 class TrendingMovieList extends Component {
   state = {
@@ -17,13 +18,10 @@ class TrendingMovieList extends Component {
 
   render() {
     return (
-      <section className="section">
+      <Section>
         <h1 className="section__title">Trending today</h1>
-
-        <ul className="TrendingMovie__list">
-          <MoviesSlider movies={this.state.movies} />
-        </ul>
-      </section>
+        <MoviesSlider movies={this.state.movies} />
+      </Section>
     );
   }
 }

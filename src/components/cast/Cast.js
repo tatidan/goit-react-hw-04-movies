@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { searchCast } from "../../services/ApiService";
 import ScrollUpButton from "../ScrollUpBtn/ScrollUpBtn";
+import Section from "../Section/Section";
 
 class Cast extends Component {
   state = {
@@ -23,12 +24,12 @@ class Cast extends Component {
   render() {
     const { cast } = this.state;
     return (
-      <section className="section">
+      <Section>
         <ul className="cast__list">
           {cast?.length > 0 ? (
-            cast.map(({ profile_path, id, name, character }) => (
-              <>
-                {profile_path && (
+            cast.map(
+              ({ profile_path, id, name, character }) =>
+                profile_path && (
                   <li className="actor__card" key={id}>
                     <div className="actor__cardWrapper">
                       <div>
@@ -47,16 +48,15 @@ class Cast extends Component {
                       </div>
                     </div>
                   </li>
-                )}
-              </>
-            ))
+                )
+            )
           ) : (
             <p className="notification">No cast provided</p>
           )}
         </ul>
         )
         <ScrollUpButton />
-      </section>
+      </Section>
     );
   }
 }

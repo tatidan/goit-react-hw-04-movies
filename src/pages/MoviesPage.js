@@ -5,8 +5,8 @@ import MoviesSlider from "../components/MoviesSlider/MoviesSlider";
 import { searchMovies } from "../services/ApiService";
 import MovieDetailsPage from "./MovieDetailsPage";
 import FullMovieList from "../components/FullMovieList/FullMovieList";
-// import { withRouter } from "react-router";
 import queryString from "query-string";
+import Section from "../components/Section/Section";
 
 class MoviesPage extends Component {
   state = {
@@ -57,6 +57,8 @@ class MoviesPage extends Component {
     }
   }
 
+  // addNewMovies - забирать в searchForm newMovies
+
   onChangeQuery = (query) => {
     this.setState({
       searchQuery: query,
@@ -77,9 +79,9 @@ class MoviesPage extends Component {
         <>
           {this.state.movies.length > 0 && this.state.searchQuery ? (
             <>
-              <section className="section">
+              <Section>
                 <MoviesSlider movies={this.state.movies} />
-              </section>
+              </Section>
               <FullMovieList movies={this.state.movies} />
             </>
           ) : (

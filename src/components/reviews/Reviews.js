@@ -25,21 +25,23 @@ class Reviews extends Component {
     return (
       <>
         <ul className="reviews__list" id="ReviewsList">
-          {results?.length > 0 &&
+          {results?.length > 1 ? (
             results.map(
               ({ author, id, content }) =>
                 author && (
                   <li key={id}>
                     <b className="reviews__title"> {author}:</b>
                     <p className="reviews__content">
-                      {" "}
                       <span>"</span> {content} <span>"</span>
                     </p>
                   </li>
                 )
-            )}
+            )
+          ) : (
+            <p>There aren't any reviews for this movie yet</p>
+          )}
         </ul>
-        {/* {results || <p>There aren't any reviews for this movie yet</p>} */}
+
         <ScrollUpButton />
       </>
     );

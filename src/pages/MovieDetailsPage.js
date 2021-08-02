@@ -7,6 +7,19 @@ import { searchMovieDetails } from "../services/ApiService";
 import sprite from "../icons/sprite.svg";
 import defaultImg from "../images/movie-in-prod.jpg";
 
+const getIcon = (vote_average) => {
+  if (vote_average <= 5) {
+    return "#icon-star-empty";
+  }
+
+  if (vote_average < 8 && vote_average > 5) {
+    return "#icon-star-half";
+  }
+  if (vote_average >= 8) {
+    return "#icon-star-full";
+  }
+};
+
 class MovieDetailsPage extends Component {
   state = {
     title: "",
@@ -53,8 +66,7 @@ class MovieDetailsPage extends Component {
     if (location.state && location.state.from) {
       return history.push(location.state.from);
     }
-    history.push("/movies");
-    // history.push(location?.state?.from || "/movies");
+    history.push(location?.state?.from || "/movies");
   };
 
   render() {
@@ -135,31 +147,16 @@ class MovieDetailsPage extends Component {
                 {!adult && <span>R</span>}
                 <b> * </b> {runtime} mins
                 <b> * </b>
-                {vote_average >= 8 && (
+                {vote_average && vote_count ? (
                   <>
                     <svg className="NavLink__icon">
-                      <use href={sprite + "#icon-star-full"}></use>
+                      <use href={sprite + getIcon(vote_average)}></use>
                     </svg>
                     {vote_average} / 10 <b> * Votes:</b> {vote_count}
                   </>
+                ) : (
+                  <span>Unrated</span>
                 )}
-                {vote_average < 8 && vote_average > 5 && (
-                  <>
-                    <svg className="NavLink__icon">
-                      <use href={sprite + "#icon-star-half"}></use>
-                    </svg>
-                    {vote_average} / 10 <b> * Votes:</b> {vote_count}
-                  </>
-                )}
-                {vote_average <= 5 && (
-                  <>
-                    <svg className="NavLink__icon">
-                      <use href={sprite + "#icon-star-empty"}></use>
-                    </svg>
-                    {vote_average} / 10 <b> * Votes:</b> {vote_count}
-                  </>
-                )}
-                {!vote_average && !vote_count && <span>Unrated</span>}
                 <b> * </b>
                 {genres?.length > 0 &&
                   genres.map(
@@ -170,7 +167,7 @@ class MovieDetailsPage extends Component {
                 <b>Overview:</b> {overview}
               </p>
 
-              {production_companies === null && <h4>Production companies:</h4>}
+              {!!production_companies?.length && <h4>Production companies:</h4>}
               <ul className="movie__companies">
                 {production_companies?.length > 0 &&
                   production_companies.map(
@@ -188,7 +185,7 @@ class MovieDetailsPage extends Component {
                       )
                   )}
               </ul>
-              {production_countries === null && <b>Production countries:</b>}
+              {!!production_countries?.length && <b>Production countries:</b>}
               <ul className="movie__countries">
                 {production_countries?.length > 0 &&
                   production_countries.map(
@@ -234,5 +231,3 @@ class MovieDetailsPage extends Component {
 }
 
 export default MovieDetailsPage;
-
-// back to the list of movies

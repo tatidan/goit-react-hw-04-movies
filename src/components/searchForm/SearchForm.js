@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import sprite from "../../icons/sprite.svg";
+import { withRouter } from "react-router-dom";
 import { searchMovies } from "../../services/ApiService";
 import SearchStats from "../SearchStats/SearchStats";
+import sprite from "../../icons/sprite.svg";
 
 class SearchForm extends Component {
   state = {
@@ -18,6 +19,11 @@ class SearchForm extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.onSubmit(this.state.query);
+    this.props.history.push({
+      pathname: this.props.location.pathname,
+      search: `query=${this.state.query}`,
+    });
+
     // this.reset();
   };
 
@@ -59,12 +65,14 @@ class SearchForm extends Component {
                 placeholder="Movie title here"
               />
             </label>
-            <button className="loadMoreBtn" type="submit">
-              <svg className="search__icon">
-                <use href={sprite + "#icon-search"}></use>
-              </svg>
-              Search
-            </button>
+            {this.state.query && (
+              <button className="loadMoreBtn" type="submit">
+                <svg className="search__icon">
+                  <use href={sprite + "#icon-search"}></use>
+                </svg>
+                Search
+              </button>
+            )}
           </form>
 
           {total_pages >= 1 && (
@@ -81,42 +89,13 @@ class SearchForm extends Component {
   }
 }
 
-export default SearchForm;
+export default withRouter(SearchForm);
 
 //как и когда очистить input value?
 
 //при false results рендерится уведомление "нет результата поиска"
 
 // adult: false  (if true - 18+)
-
-// "genres": [
-// {
-// "id": 18,
-// "name": "Drama"
-// }
-// ],
-
-//"imdb_id": "tt0137523"
-// https://www.imdb.com/title/tt0137523/
-// https://www.imdb.com/video/vi781228825?playlistId=tt0137523
-
-// наверняка ее айди такой: tt3480822
-// https://www.imdb.com/video/vi645185561?playlistId=tt3480822
-
-// "production_countries": [
-// {
-// "iso_3166_1": "DE",
-// "name": "Germany"
-// },
-// {
-// "iso_3166_1": "US",
-// "name": "United States of America"
-// }
-// ],
-
-// "tagline": "Mischief. Mayhem. Soap.",
-// "vote_average": 8.4,
-// "vote_count": 22100
 
 //поиск по фамилии актера
 //https://api.themoviedb.org/3/search/person?api_key=e8ee72216daf4e999abce8d8e2bbbfa9&language=en-US&query=depp&page=1&include_adult=false

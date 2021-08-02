@@ -26,12 +26,18 @@ const SearchStats = ({
           <b>Total matches:</b> {totalResults}
         </span>
 
-        <button type="button" className="loadMoreBtn" onClick={handleLoadMore}>
-          <svg className="search__icon">
-            <use href={sprite + "#icon-images"}></use>
-          </svg>
-          Load more
-        </button>
+        {totalPages > 1 && (
+          <button
+            type="button"
+            className="loadMoreBtn"
+            onClick={handleLoadMore}
+          >
+            <svg className="search__icon">
+              <use href={sprite + "#icon-images"}></use>
+            </svg>
+            Load more
+          </button>
+        )}
       </div>
     </div>
   );

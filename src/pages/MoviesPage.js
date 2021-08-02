@@ -6,6 +6,7 @@ import { searchMovies } from "../services/ApiService";
 import MovieDetailsPage from "./MovieDetailsPage";
 import FullMovieList from "../components/FullMovieList/FullMovieList";
 // import { withRouter } from "react-router";
+import queryString from "query-string";
 
 class MoviesPage extends Component {
   state = {
@@ -30,15 +31,23 @@ class MoviesPage extends Component {
 
   //в didUpdate добавить check page
 
+  componentDidMount() {
+    const queryParams = queryString.parse(this.props.location.search);
+    if (queryParams?.query) {
+      this.onChangeQuery(queryParams.query);
+    }
+  }
+
   componentDidUpdate(prevProps, prevState) {
     if (prevState.searchQuery !== this.state.searchQuery) {
-      // this.props.history.push({ search: this.state.searchQuery });
-      //при такой записи ?avatar
-      //нужно ?query=avatar
-      //и повторный axios.get, когда по кнопке переход назад на movies
-
       searchMovies({ query: this.state.searchQuery }, this.options).then(
         ({ data }) => {
+          if (data.results.length === 1) {
+            this.props.history.push({
+              pathname: `/movies/${data.results[0].id}`,
+            });
+            return;
+          }
           this.setState({
             movies: data.results,
             total_pages: data.total_pages,

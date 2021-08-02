@@ -24,9 +24,8 @@ class Cast extends Component {
     const { cast } = this.state;
     return (
       <section className="section">
-        {cast === null && <p>No cast provided</p>}
         <ul className="cast__list">
-          {cast?.length > 0 &&
+          {cast?.length > 0 ? (
             cast.map(({ profile_path, id, name, character }) => (
               <>
                 {profile_path && (
@@ -50,8 +49,12 @@ class Cast extends Component {
                   </li>
                 )}
               </>
-            ))}
+            ))
+          ) : (
+            <p>No cast provided</p>
+          )}
         </ul>
+        )
         <ScrollUpButton />
       </section>
     );
